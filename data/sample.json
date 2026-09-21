@@ -1,9 +1,963 @@
-{
-  "event_id": "092108-012-sample-001",
-  "event_type": "PROFILE_REGISTERED",
-  "aggregate_type": "nominee_profile",
-  "aggregate_id": "clinician_honor_contribution-001",
-  "occurred_at": "2026-09-20T18:00:00+08:00",
-  "version": 1,
-  "summary": "登记医者荣誉贡献档案的首条领域记录"
-}
+[
+  {
+    "event_id": "evt-001-org-jiangbin",
+    "event_type": "ORG_REGISTERED",
+    "aggregate_type": "org_record",
+    "aggregate_id": "org-jiangbin-1",
+    "occurred_at": "2026-03-01T09:00:00+08:00",
+    "version": 1,
+    "summary": "登记推荐医院：江滨市第一人民医院",
+    "payload": { "org_id": "org-jiangbin-1", "org_name": "江滨市第一人民医院" }
+  },
+  {
+    "event_id": "evt-002-org-renhe",
+    "event_type": "ORG_REGISTERED",
+    "aggregate_type": "org_record",
+    "aggregate_id": "org-renhe-1",
+    "occurred_at": "2026-03-01T09:05:00+08:00",
+    "version": 1,
+    "summary": "登记跨院合作机构：仁和医院",
+    "payload": { "org_id": "org-renhe-1", "org_name": "仁和医院" }
+  },
+  {
+    "event_id": "evt-003-org-assoc",
+    "event_type": "ORG_REGISTERED",
+    "aggregate_type": "org_record",
+    "aggregate_id": "org-assoc-1",
+    "occurred_at": "2026-03-01T09:10:00+08:00",
+    "version": 1,
+    "summary": "登记同行证明机构：省医师协会",
+    "payload": { "org_id": "org-assoc-1", "org_name": "省医师协会" }
+  },
+  {
+    "event_id": "evt-004-org-renamed",
+    "event_type": "ORG_RENAMED",
+    "aggregate_type": "org_record",
+    "aggregate_id": "org-jiangbin-1",
+    "occurred_at": "2026-03-01T09:15:00+08:00",
+    "version": 2,
+    "summary": "医院于2021年更名并入高校体系，历史名称保留",
+    "payload": {
+      "org_id": "org-jiangbin-1",
+      "previous_name": "江滨市第一人民医院",
+      "new_name": "江滨大学附属第一医院",
+      "effective_at": "2021-01-01T00:00:00+08:00"
+    }
+  },
+  {
+    "event_id": "evt-010-lin",
+    "event_type": "PROFILE_REGISTERED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "p-lin",
+    "occurred_at": "2026-03-02T09:00:00+08:00",
+    "version": 1,
+    "summary": "登记候选人：心血管内科林慧文",
+    "payload": {
+      "profile_id": "p-lin",
+      "profile_kind": "individual",
+      "canonical_name": "林慧文",
+      "name_variants": []
+    }
+  },
+  {
+    "event_id": "evt-011-chen",
+    "event_type": "PROFILE_REGISTERED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "p-chen",
+    "occurred_at": "2026-03-02T09:05:00+08:00",
+    "version": 1,
+    "summary": "登记候选人：退休专家陈守业",
+    "payload": { "profile_id": "p-chen", "profile_kind": "individual", "canonical_name": "陈守业" }
+  },
+  {
+    "event_id": "evt-012-zhou",
+    "event_type": "PROFILE_REGISTERED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "p-zhou",
+    "occurred_at": "2026-03-02T09:10:00+08:00",
+    "version": 1,
+    "summary": "登记候选人：2020年离职的周景明",
+    "payload": { "profile_id": "p-zhou", "profile_kind": "individual", "canonical_name": "周景明" }
+  },
+  {
+    "event_id": "evt-013-su",
+    "event_type": "PROFILE_REGISTERED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "p-su",
+    "occurred_at": "2026-03-02T09:15:00+08:00",
+    "version": 1,
+    "summary": "登记候选人：跨院合作医生苏方远",
+    "payload": { "profile_id": "p-su", "profile_kind": "individual", "canonical_name": "苏方远" }
+  },
+  {
+    "event_id": "evt-014-zhao",
+    "event_type": "PROFILE_REGISTERED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "p-zhao",
+    "occurred_at": "2026-03-02T09:20:00+08:00",
+    "version": 1,
+    "summary": "登记候选人：2021年新加入的赵一鸣",
+    "payload": { "profile_id": "p-zhao", "profile_kind": "individual", "canonical_name": "赵一鸣" }
+  },
+  {
+    "event_id": "evt-015-team",
+    "event_type": "PROFILE_REGISTERED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "t-xunzhen",
+    "occurred_at": "2026-03-02T09:25:00+08:00",
+    "version": 1,
+    "summary": "登记候选团队：江滨心晴巡诊团队",
+    "payload": {
+      "profile_id": "t-xunzhen",
+      "profile_kind": "team",
+      "canonical_name": "江滨心晴巡诊团队"
+    }
+  },
+  {
+    "event_id": "evt-016-team-dup",
+    "event_type": "PROFILE_REGISTERED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "t-xz-oldname",
+    "occurred_at": "2026-03-02T09:30:00+08:00",
+    "version": 1,
+    "summary": "旧机构名称下重复建档的同名团队",
+    "payload": {
+      "profile_id": "t-xz-oldname",
+      "profile_kind": "team",
+      "canonical_name": "江滨市第一人民医院心晴巡诊队"
+    }
+  },
+  {
+    "event_id": "evt-017-lin-dup",
+    "event_type": "PROFILE_REGISTERED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "p-lin-typo",
+    "occurred_at": "2026-03-02T09:35:00+08:00",
+    "version": 1,
+    "summary": "因姓名异体（林惠文）误录产生的重复候选人档案",
+    "payload": {
+      "profile_id": "p-lin-typo",
+      "profile_kind": "individual",
+      "canonical_name": "林惠文"
+    }
+  },
+  {
+    "event_id": "evt-020-merge-team",
+    "event_type": "IDENTITY_MERGED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "t-xunzhen",
+    "occurred_at": "2026-03-03T10:00:00+08:00",
+    "version": 2,
+    "summary": "旧机构名团队档案归并到规范团队",
+    "payload": {
+      "canonical_profile_id": "t-xunzhen",
+      "merged_profile_id": "t-xz-oldname",
+      "reason": "org_renamed",
+      "note": "机构2021年更名，推荐材料沿用旧章名称导致重复建档"
+    }
+  },
+  {
+    "event_id": "evt-021-merge-lin",
+    "event_type": "IDENTITY_MERGED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "p-lin",
+    "occurred_at": "2026-03-03T10:05:00+08:00",
+    "version": 2,
+    "summary": "姓名异体档案归并到林慧文规范档案",
+    "payload": {
+      "canonical_profile_id": "p-lin",
+      "merged_profile_id": "p-lin-typo",
+      "reason": "name_variant",
+      "note": "“惠”为“慧”的同音误录"
+    }
+  },
+  {
+    "event_id": "evt-030-tenure-lin",
+    "event_type": "TENURE_RECORDED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "p-lin",
+    "occurred_at": "2026-03-04T09:00:00+08:00",
+    "version": 1,
+    "summary": "林慧文自1999年在该院任职，机构名按入职时名称快照",
+    "payload": {
+      "person_profile_id": "p-lin",
+      "org_id": "org-jiangbin-1",
+      "org_name_snapshot": "江滨市第一人民医院",
+      "started_at": "1999-07-01T00:00:00+08:00",
+      "status": "active",
+      "role_title": "心血管内科主任医师"
+    }
+  },
+  {
+    "event_id": "evt-031-tenure-chen",
+    "event_type": "TENURE_RECORDED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "p-chen",
+    "occurred_at": "2026-03-04T09:05:00+08:00",
+    "version": 1,
+    "summary": "陈守业1985年入职、2022年退休，退休不抹去原贡献",
+    "payload": {
+      "person_profile_id": "p-chen",
+      "org_id": "org-jiangbin-1",
+      "org_name_snapshot": "江滨市第一人民医院",
+      "started_at": "1985-08-01T00:00:00+08:00",
+      "ended_at": "2022-03-31T00:00:00+08:00",
+      "status": "retired",
+      "role_title": "心血管内科前主任"
+    }
+  },
+  {
+    "event_id": "evt-032-tenure-zhou",
+    "event_type": "TENURE_RECORDED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "p-zhou",
+    "occurred_at": "2026-03-04T09:10:00+08:00",
+    "version": 1,
+    "summary": "周景明2020年离职他院，离职前贡献保留",
+    "payload": {
+      "person_profile_id": "p-zhou",
+      "org_id": "org-jiangbin-1",
+      "org_name_snapshot": "江滨市第一人民医院",
+      "started_at": "2008-07-01T00:00:00+08:00",
+      "ended_at": "2020-06-30T00:00:00+08:00",
+      "status": "departed",
+      "role_title": "心内科前副主任医师"
+    }
+  },
+  {
+    "event_id": "evt-033-tenure-su",
+    "event_type": "TENURE_RECORDED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "p-su",
+    "occurred_at": "2026-03-04T09:15:00+08:00",
+    "version": 1,
+    "summary": "苏方远任职于仁和医院，系跨院合作方",
+    "payload": {
+      "person_profile_id": "p-su",
+      "org_id": "org-renhe-1",
+      "org_name_snapshot": "仁和医院",
+      "started_at": "2006-09-01T00:00:00+08:00",
+      "status": "active",
+      "role_title": "全科主任医师"
+    }
+  },
+  {
+    "event_id": "evt-034-tenure-zhao",
+    "event_type": "TENURE_RECORDED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "p-zhao",
+    "occurred_at": "2026-03-04T09:20:00+08:00",
+    "version": 1,
+    "summary": "赵一鸣2021年入职，晚于公益巡诊项目",
+    "payload": {
+      "person_profile_id": "p-zhao",
+      "org_id": "org-jiangbin-1",
+      "org_name_snapshot": "江滨大学附属第一医院",
+      "started_at": "2021-03-01T00:00:00+08:00",
+      "status": "active",
+      "role_title": "心内科主治医师"
+    }
+  },
+  {
+    "event_id": "evt-040-license-lin",
+    "event_type": "LICENSE_VERIFIED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "p-lin",
+    "occurred_at": "2026-03-05T09:00:00+08:00",
+    "version": 3,
+    "summary": "核验林慧文执业资质有效，证号脱敏",
+    "payload": {
+      "person_profile_id": "p-lin",
+      "license_no_masked": "1101********2207",
+      "specialty": "内科专业（心血管）",
+      "status": "valid",
+      "verified_by": "省卫生健康行政部门",
+      "verified_at": "2026-03-05T08:30:00+08:00"
+    }
+  },
+  {
+    "event_id": "evt-050-member-lin",
+    "event_type": "TEAM_MEMBERSHIP_RECORDED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "t-xunzhen",
+    "occurred_at": "2026-03-06T09:00:00+08:00",
+    "version": 3,
+    "summary": "林慧文2013年起参加巡诊团队并持续至今",
+    "payload": { "team_profile_id": "t-xunzhen", "member_profile_id": "p-lin", "participated_from": "2013-01-01T00:00:00+08:00", "role": "领队" }
+  },
+  {
+    "event_id": "evt-051-member-chen",
+    "event_type": "TEAM_MEMBERSHIP_RECORDED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "t-xunzhen",
+    "occurred_at": "2026-03-06T09:05:00+08:00",
+    "version": 4,
+    "summary": "陈守业参与至2018年底",
+    "payload": {
+      "team_profile_id": "t-xunzhen",
+      "member_profile_id": "p-chen",
+      "participated_from": "2013-01-01T00:00:00+08:00",
+      "participated_to": "2018-12-31T23:59:59+08:00",
+      "role": "义诊顾问"
+    }
+  },
+  {
+    "event_id": "evt-052-member-zhou",
+    "event_type": "TEAM_MEMBERSHIP_RECORDED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "t-xunzhen",
+    "occurred_at": "2026-03-06T09:10:00+08:00",
+    "version": 5,
+    "summary": "周景明参与至2020年离职前",
+    "payload": {
+      "team_profile_id": "t-xunzhen",
+      "member_profile_id": "p-zhou",
+      "participated_from": "2013-01-01T00:00:00+08:00",
+      "participated_to": "2020-06-30T23:59:59+08:00",
+      "role": "巡诊副组长"
+    }
+  },
+  {
+    "event_id": "evt-053-member-su",
+    "event_type": "TEAM_MEMBERSHIP_RECORDED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "t-xunzhen",
+    "occurred_at": "2026-03-06T09:15:00+08:00",
+    "version": 6,
+    "summary": "苏方远作为仁和医院成员在2014至2018年实际参与",
+    "payload": {
+      "team_profile_id": "t-xunzhen",
+      "member_profile_id": "p-su",
+      "participated_from": "2014-03-01T00:00:00+08:00",
+      "participated_to": "2018-11-30T23:59:59+08:00",
+      "role": "跨院巡诊搭档"
+    }
+  },
+  {
+    "event_id": "evt-054-member-zhao",
+    "event_type": "TEAM_MEMBERSHIP_RECORDED",
+    "aggregate_type": "nominee_profile",
+    "aggregate_id": "t-xunzhen",
+    "occurred_at": "2026-03-06T09:20:00+08:00",
+    "version": 7,
+    "summary": "赵一鸣2021年才加入团队，不继承此前项目成果",
+    "payload": {
+      "team_profile_id": "t-xunzhen",
+      "member_profile_id": "p-zhao",
+      "participated_from": "2021-03-01T00:00:00+08:00",
+      "role": "青年队员"
+    }
+  },
+  {
+    "event_id": "evt-060-contrib-charity",
+    "event_type": "CONTRIBUTION_ATTESTED",
+    "aggregate_type": "contribution_record",
+    "aggregate_id": "c-mountain-charity",
+    "occurred_at": "2026-03-09T09:00:00+08:00",
+    "version": 1,
+    "summary": "山区心脑血管公益巡诊（2014—2018），公益与多机构合作，按实际参与时间窗署名",
+    "payload": {
+      "contribution_id": "c-mountain-charity",
+      "title": "山区心脑血管疾病公益巡诊与带教",
+      "categories": ["public_charity", "multi_institution"],
+      "period_from": "2014-01-01T00:00:00+08:00",
+      "period_to": "2018-12-31T23:59:59+08:00",
+      "org_ids": ["org-jiangbin-1", "org-renhe-1"],
+      "evidence_refs": ["doc://巡诊行程签认表2014-2018", "doc://乡镇卫生院接收记录"],
+      "participants": [
+        { "profile_id": "p-lin", "role": "领队", "participated_from": "2014-01-01T00:00:00+08:00", "participated_to": "2018-12-31T23:59:59+08:00" },
+        { "profile_id": "p-chen", "role": "义诊顾问", "participated_from": "2014-01-01T00:00:00+08:00", "participated_to": "2018-10-31T23:59:59+08:00" },
+        { "profile_id": "p-zhou", "role": "巡诊副组长", "participated_from": "2014-01-01T00:00:00+08:00", "participated_to": "2018-12-31T23:59:59+08:00" },
+        { "profile_id": "p-su", "role": "跨院巡诊搭档", "participated_from": "2014-03-01T00:00:00+08:00", "participated_to": "2018-11-30T23:59:59+08:00" }
+      ]
+    }
+  },
+  {
+    "event_id": "evt-061-peer-charity",
+    "event_type": "PEER_ENDORSED",
+    "aggregate_type": "contribution_record",
+    "aggregate_id": "c-mountain-charity",
+    "occurred_at": "2026-03-09T09:30:00+08:00",
+    "version": 2,
+    "summary": "省医师协会出具同行证明",
+    "payload": {
+      "contribution_id": "c-mountain-charity",
+      "endorser_name": "秦旷之",
+      "endorser_org_id": "org-assoc-1",
+      "statement_ref": "doc://省医师协会巡诊证明2019-04",
+      "endorsed_at": "2019-04-12T00:00:00+08:00"
+    }
+  },
+  {
+    "event_id": "evt-062-contrib-specialty",
+    "event_type": "CONTRIBUTION_ATTESTED",
+    "aggregate_type": "contribution_record",
+    "aggregate_id": "c-chest-center",
+    "occurred_at": "2026-03-09T10:00:00+08:00",
+    "version": 1,
+    "summary": "胸痛中心专科建设（2016—2020），周景明离职前为实际参与者",
+    "payload": {
+      "contribution_id": "c-chest-center",
+      "title": "胸痛中心绿色通道与区域协同体系建设",
+      "categories": ["clinical", "specialty_building"],
+      "period_from": "2016-01-01T00:00:00+08:00",
+      "period_to": "2020-06-30T23:59:59+08:00",
+      "org_ids": ["org-jiangbin-1"],
+      "evidence_refs": ["doc://胸痛中心认证材料"],
+      "participants": [
+        { "profile_id": "p-lin", "role": "中心主任", "participated_from": "2016-01-01T00:00:00+08:00", "participated_to": "2020-06-30T23:59:59+08:00" },
+        { "profile_id": "p-zhou", "role": "绿色通道负责人", "participated_from": "2016-01-01T00:00:00+08:00", "participated_to": "2020-06-30T23:59:59+08:00" }
+      ]
+    }
+  },
+  {
+    "event_id": "evt-063-contrib-newera",
+    "event_type": "CONTRIBUTION_ATTESTED",
+    "aggregate_type": "contribution_record",
+    "aggregate_id": "c-post2021-clinic",
+    "occurred_at": "2026-03-09T10:30:00+08:00",
+    "version": 1,
+    "summary": "2021年后的临床质控工作，赵一鸣自此时段起才有署名",
+    "payload": {
+      "contribution_id": "c-post2021-clinic",
+      "title": "心内科慢病随访质控（2021—2024）",
+      "categories": ["clinical"],
+      "period_from": "2021-03-01T00:00:00+08:00",
+      "period_to": "2024-12-31T23:59:59+08:00",
+      "org_ids": ["org-jiangbin-1"],
+      "evidence_refs": ["doc://质控年度报告"],
+      "participants": [
+        { "profile_id": "p-lin", "role": "学科带头人", "participated_from": "2021-03-01T00:00:00+08:00", "participated_to": "2024-12-31T23:59:59+08:00" },
+        { "profile_id": "p-zhao", "role": "随访组骨干", "participated_from": "2021-03-01T00:00:00+08:00", "participated_to": "2024-12-31T23:59:59+08:00" }
+      ]
+    }
+  },
+  {
+    "event_id": "evt-070-nom-team",
+    "event_type": "NOMINATION_SUBMITTED",
+    "aggregate_type": "nomination",
+    "aggregate_id": "nom-2026-team-01",
+    "occurred_at": "2026-03-10T09:00:00+08:00",
+    "version": 1,
+    "summary": "医院经团队通道推荐巡诊团队申报团队协作荣誉",
+    "payload": {
+      "nomination_id": "nom-2026-team-01",
+      "profile_id": "t-xunzhen",
+      "track": "team",
+      "award_category": "team_collaboration",
+      "recommending_org_id": "org-jiangbin-1",
+      "contribution_ids": ["c-mountain-charity", "c-chest-center"],
+      "recommendation_statement_ref": "doc://团队推荐意见2026",
+      "submitted_at": "2026-03-10T09:00:00+08:00"
+    }
+  },
+  {
+    "event_id": "evt-071-nom-lin",
+    "event_type": "NOMINATION_SUBMITTED",
+    "aggregate_type": "nomination",
+    "aggregate_id": "nom-2026-ind-lin",
+    "occurred_at": "2026-03-10T09:05:00+08:00",
+    "version": 1,
+    "summary": "医院经个人通道推荐林慧文",
+    "payload": {
+      "nomination_id": "nom-2026-ind-lin",
+      "profile_id": "p-lin",
+      "track": "individual",
+      "award_category": "clinical_achievement",
+      "recommending_org_id": "org-jiangbin-1",
+      "contribution_ids": ["c-chest-center", "c-post2021-clinic"],
+      "recommendation_statement_ref": "doc://个人推荐意见2026",
+      "submitted_at": "2026-03-10T09:05:00+08:00"
+    }
+  },
+  {
+    "event_id": "evt-072-nom-dup",
+    "event_type": "NOMINATION_SUBMITTED",
+    "aggregate_type": "nomination",
+    "aggregate_id": "nom-2026-ind-lin-typo",
+    "occurred_at": "2026-03-10T09:10:00+08:00",
+    "version": 1,
+    "summary": "另一科室以“林惠文”重复提交个人推荐",
+    "payload": {
+      "nomination_id": "nom-2026-ind-lin-typo",
+      "profile_id": "p-lin-typo",
+      "track": "individual",
+      "award_category": "clinical_achievement",
+      "recommending_org_id": "org-jiangbin-1",
+      "contribution_ids": ["c-chest-center"],
+      "recommendation_statement_ref": "doc://重复推荐意见2026",
+      "submitted_at": "2026-03-10T09:10:00+08:00"
+    }
+  },
+  {
+    "event_id": "evt-073-nom-consolidated",
+    "event_type": "NOMINATION_CONSOLIDATED",
+    "aggregate_type": "nomination",
+    "aggregate_id": "nom-2026-ind-lin",
+    "occurred_at": "2026-03-11T14:00:00+08:00",
+    "version": 2,
+    "summary": "重复推荐归并到同一候选人的同一条推荐",
+    "payload": {
+      "kept_nomination_id": "nom-2026-ind-lin",
+      "merged_nomination_ids": ["nom-2026-ind-lin-typo"],
+      "reason": "duplicate_nomination"
+    }
+  },
+  {
+    "event_id": "evt-074-nom-amended",
+    "event_type": "NOMINATION_AMENDED",
+    "aggregate_type": "nomination",
+    "aggregate_id": "nom-2026-team-01",
+    "occurred_at": "2026-03-20T15:00:00+08:00",
+    "version": 2,
+    "summary": "材料补正：补充跨院合作协议，但颁奖名单整理时仍遗漏苏方远",
+    "payload": {
+      "nomination_id": "nom-2026-team-01",
+      "amendment_note": "补充仁和医院协作协议与巡诊搭档分工说明",
+      "changed_fields": ["contribution_evidence"],
+      "amended_at": "2026-03-20T15:00:00+08:00"
+    }
+  },
+  {
+    "event_id": "evt-080-award",
+    "event_type": "AWARD_GRANTED",
+    "aggregate_type": "award",
+    "aggregate_id": "award-2026-team-07",
+    "occurred_at": "2026-05-10T10:00:00+08:00",
+    "version": 1,
+    "summary": "巡诊团队获2026年度团队协作荣誉，成果时段2014—2018；原始署名遗漏苏方远",
+    "payload": {
+      "award_id": "award-2026-team-07",
+      "profile_id": "t-xunzhen",
+      "track": "team",
+      "award_category": "team_collaboration",
+      "period_from": "2014-01-01T00:00:00+08:00",
+      "period_to": "2018-12-31T23:59:59+08:00",
+      "contribution_ids": ["c-mountain-charity"],
+      "participants": [
+        { "profile_id": "p-lin", "role": "领队", "participated_from": "2014-01-01T00:00:00+08:00", "participated_to": "2018-12-31T23:59:59+08:00" },
+        { "profile_id": "p-chen", "role": "义诊顾问", "participated_from": "2014-01-01T00:00:00+08:00", "participated_to": "2018-10-31T23:59:59+08:00" },
+        { "profile_id": "p-zhou", "role": "巡诊副组长", "participated_from": "2014-01-01T00:00:00+08:00", "participated_to": "2018-12-31T23:59:59+08:00" }
+      ]
+    }
+  },
+  {
+    "event_id": "evt-090-consent-ali",
+    "event_type": "CONSENT_GRANTED",
+    "aggregate_type": "consent_grant",
+    "aggregate_id": "consent-ali-2026",
+    "occurred_at": "2026-04-02T11:00:00+08:00",
+    "version": 1,
+    "summary": "患者阿莲（化名）分别授权评审、盛典、长期宣传三种用途",
+    "payload": {
+      "consent_id": "consent-ali-2026",
+      "patient_pseudonym": "阿莲（化名）",
+      "purposes": ["review", "ceremony", "long_term_publicity"],
+      "granted_at": "2026-04-02T11:00:00+08:00",
+      "statement_version": "患者叙事授权书-v3-2026",
+      "story_id": "s-2026-team-long"
+    }
+  },
+  {
+    "event_id": "evt-091-license-hospital",
+    "event_type": "MEDIA_LICENSE_GRANTED",
+    "aggregate_type": "media_license",
+    "aggregate_id": "ml-hospital-2026",
+    "occurred_at": "2026-04-05T10:00:00+08:00",
+    "version": 1,
+    "summary": "医院授予榜单页、媒体材料与盛典现场材料的使用许可",
+    "payload": {
+      "license_id": "ml-hospital-2026",
+      "licensor_role": "hospital",
+      "channels": ["honor_roll_page", "media_kit", "ceremony"],
+      "material_refs": ["mat://团队照片2018", "mat://巡诊纪录片片段"],
+      "granted_from": "2026-04-05T00:00:00+08:00"
+    }
+  },
+  {
+    "event_id": "evt-092-license-patient",
+    "event_type": "MEDIA_LICENSE_GRANTED",
+    "aggregate_type": "media_license",
+    "aggregate_id": "ml-patient-2026",
+    "occurred_at": "2026-04-05T10:30:00+08:00",
+    "version": 1,
+    "summary": "患者就患者故事渠道单独授予媒体许可",
+    "payload": {
+      "license_id": "ml-patient-2026",
+      "licensor_role": "patient",
+      "channels": ["patient_story"],
+      "material_refs": ["mat://阿莲口述视频"],
+      "granted_from": "2026-04-05T00:00:00+08:00"
+    }
+  },
+  {
+    "event_id": "evt-100-gala-prepared",
+    "event_type": "PUBLICATION_PREPARED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-gala",
+    "occurred_at": "2026-05-01T09:00:00+08:00",
+    "version": 1,
+    "summary": "盛典现场片单（盛典用途）",
+    "payload": {
+      "story_id": "s-2026-gala",
+      "version": 1,
+      "nomination_id": "nom-2026-team-01",
+      "channel_targets": ["ceremony"],
+      "attribution_entries": [
+        { "profile_id": "p-lin", "role": "领队" },
+        { "profile_id": "p-chen", "role": "义诊顾问" },
+        { "profile_id": "p-zhou", "role": "巡诊副组长" }
+      ],
+      "consent_ids": ["consent-ali-2026"],
+      "media_license_ids": ["ml-hospital-2026"],
+      "award_ids": ["award-2026-team-07"],
+      "patient_story_included": true
+    }
+  },
+  {
+    "event_id": "evt-101-gala-approval-h",
+    "event_type": "PUBLICATION_APPROVED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-gala",
+    "occurred_at": "2026-05-02T09:00:00+08:00",
+    "version": 2,
+    "summary": "推荐医院核对盛典片单无误",
+    "payload": { "story_id": "s-2026-gala", "version": 1, "reviewer_kind": "hospital", "approved": true, "reviewed_at": "2026-05-02T09:00:00+08:00" }
+  },
+  {
+    "event_id": "evt-102-gala-approval-c",
+    "event_type": "PUBLICATION_APPROVED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-gala",
+    "occurred_at": "2026-05-02T15:00:00+08:00",
+    "version": 3,
+    "summary": "团队候选人核对盛典片单无误",
+    "payload": { "story_id": "s-2026-gala", "version": 1, "reviewer_kind": "candidate", "approved": true, "reviewed_at": "2026-05-02T15:00:00+08:00" }
+  },
+  {
+    "event_id": "evt-103-gala-released",
+    "event_type": "STORY_RELEASED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-gala",
+    "occurred_at": "2026-05-20T19:30:00+08:00",
+    "version": 4,
+    "summary": "盛典现场发布",
+    "payload": { "story_id": "s-2026-gala", "version": 1, "channels": ["ceremony"], "released_at": "2026-05-20T19:30:00+08:00" }
+  },
+  {
+    "event_id": "evt-110-long-prepared",
+    "event_type": "PUBLICATION_PREPARED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-team-long",
+    "occurred_at": "2026-05-01T10:00:00+08:00",
+    "version": 1,
+    "summary": "长期宣传版本：榜单页、患者故事、媒体材料（发布时仍含遗漏署名）",
+    "payload": {
+      "story_id": "s-2026-team-long",
+      "version": 1,
+      "nomination_id": "nom-2026-team-01",
+      "channel_targets": ["honor_roll_page", "patient_story", "media_kit"],
+      "attribution_entries": [
+        { "profile_id": "p-lin", "role": "领队" },
+        { "profile_id": "p-chen", "role": "义诊顾问" },
+        { "profile_id": "p-zhou", "role": "巡诊副组长" }
+      ],
+      "consent_ids": ["consent-ali-2026"],
+      "media_license_ids": ["ml-hospital-2026", "ml-patient-2026"],
+      "contribution_ids": ["c-mountain-charity"],
+      "award_ids": ["award-2026-team-07"],
+      "patient_story_included": true
+    }
+  },
+  {
+    "event_id": "evt-111-long-approval-h",
+    "event_type": "PUBLICATION_APPROVED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-team-long",
+    "occurred_at": "2026-05-03T09:00:00+08:00",
+    "version": 2,
+    "summary": "推荐医院核对长期宣传版本",
+    "payload": { "story_id": "s-2026-team-long", "version": 1, "reviewer_kind": "hospital", "approved": true, "reviewed_at": "2026-05-03T09:00:00+08:00" }
+  },
+  {
+    "event_id": "evt-112-long-approval-c",
+    "event_type": "PUBLICATION_APPROVED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-team-long",
+    "occurred_at": "2026-05-03T16:00:00+08:00",
+    "version": 3,
+    "summary": "团队候选人核对长期宣传版本",
+    "payload": { "story_id": "s-2026-team-long", "version": 1, "reviewer_kind": "candidate", "approved": true, "review_note": "建议复核跨院成员署名", "reviewed_at": "2026-05-03T16:00:00+08:00" }
+  },
+  {
+    "event_id": "evt-113-long-released",
+    "event_type": "STORY_RELEASED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-team-long",
+    "occurred_at": "2026-05-25T10:00:00+08:00",
+    "version": 4,
+    "summary": "榜单页、患者故事、媒体材料三渠道发布",
+    "payload": {
+      "story_id": "s-2026-team-long",
+      "version": 1,
+      "channels": ["honor_roll_page", "patient_story", "media_kit"],
+      "released_at": "2026-05-25T10:00:00+08:00"
+    }
+  },
+  {
+    "event_id": "evt-120-correction",
+    "event_type": "ATTRIBUTION_CORRECTED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "corr-2026-001",
+    "occurred_at": "2026-06-10T14:00:00+08:00",
+    "version": 1,
+    "summary": "后继更正：补登2014—2018年实际参与的跨院成员苏方远；不改动任何历史事件",
+    "payload": {
+      "correction_id": "corr-2026-001",
+      "scope": "award",
+      "error_kind": "omitted_member",
+      "target_id": "award-2026-team-07",
+      "original_event_id": "evt-080-award",
+      "corrected_at": "2026-06-10T14:00:00+08:00",
+      "attribution_after": [
+        { "profile_id": "p-lin", "role": "领队", "participated_from": "2014-01-01T00:00:00+08:00", "participated_to": "2018-12-31T23:59:59+08:00" },
+        { "profile_id": "p-chen", "role": "义诊顾问", "participated_from": "2014-01-01T00:00:00+08:00", "participated_to": "2018-10-31T23:59:59+08:00" },
+        { "profile_id": "p-zhou", "role": "巡诊副组长", "participated_from": "2014-01-01T00:00:00+08:00", "participated_to": "2018-12-31T23:59:59+08:00" },
+        { "profile_id": "p-su", "role": "跨院巡诊搭档", "participated_from": "2014-03-01T00:00:00+08:00", "participated_to": "2018-11-30T23:59:59+08:00" }
+      ],
+      "note": "依据2026-03补正的跨院协作协议与巡诊签认表补登；赵一鸣2021年才加入，不列入"
+    }
+  },
+  {
+    "event_id": "evt-121-propagate-honor",
+    "event_type": "CORRECTION_PROPAGATED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "corr-2026-001",
+    "occurred_at": "2026-06-10T15:00:00+08:00",
+    "version": 2,
+    "summary": "更正同步至榜单页",
+    "payload": { "correction_id": "corr-2026-001", "story_id": "s-2026-team-long", "channel": "honor_roll_page", "status": "synced", "synced_at": "2026-06-10T15:00:00+08:00" }
+  },
+  {
+    "event_id": "evt-122-propagate-story",
+    "event_type": "CORRECTION_PROPAGATED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "corr-2026-001",
+    "occurred_at": "2026-06-10T15:20:00+08:00",
+    "version": 3,
+    "summary": "更正同步至患者故事页",
+    "payload": { "correction_id": "corr-2026-001", "story_id": "s-2026-team-long", "channel": "patient_story", "status": "synced", "synced_at": "2026-06-10T15:20:00+08:00" }
+  },
+  {
+    "event_id": "evt-123-propagate-media",
+    "event_type": "CORRECTION_PROPAGATED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "corr-2026-001",
+    "occurred_at": "2026-06-10T16:00:00+08:00",
+    "version": 4,
+    "summary": "更正同步至媒体材料包",
+    "payload": { "correction_id": "corr-2026-001", "story_id": "s-2026-team-long", "channel": "media_kit", "status": "synced", "synced_at": "2026-06-10T16:00:00+08:00" }
+  },
+  {
+    "event_id": "evt-124-propagate-ceremony",
+    "event_type": "CORRECTION_PROPAGATED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "corr-2026-001",
+    "occurred_at": "2026-06-12T10:00:00+08:00",
+    "version": 5,
+    "summary": "盛典归档材料附勘误说明",
+    "payload": { "correction_id": "corr-2026-001", "story_id": "s-2026-gala", "channel": "ceremony", "status": "synced", "synced_at": "2026-06-12T10:00:00+08:00", "detail": "现场片单已归档，追加书面勘误" }
+  },
+  {
+    "event_id": "evt-130-consent-withdrawn",
+    "event_type": "CONSENT_WITHDRAWN",
+    "aggregate_type": "consent_grant",
+    "aggregate_id": "consent-ali-2026",
+    "occurred_at": "2026-08-01T09:00:00+08:00",
+    "version": 2,
+    "summary": "患者撤回长期宣传用途；评审与盛典授权不受影响",
+    "payload": {
+      "consent_id": "consent-ali-2026",
+      "purposes": ["long_term_publicity"],
+      "withdrawn_at": "2026-08-01T09:00:00+08:00",
+      "reason": "患者个人原因"
+    }
+  },
+  {
+    "event_id": "evt-131-takedown-story",
+    "event_type": "STORY_CHANNEL_TAKEN_DOWN",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-team-long",
+    "occurred_at": "2026-08-01T11:00:00+08:00",
+    "version": 5,
+    "summary": "患者故事页立即下架",
+    "payload": { "story_id": "s-2026-team-long", "channel": "patient_story", "taken_down_at": "2026-08-01T11:00:00+08:00", "reason": "患者撤回长期宣传授权" }
+  },
+  {
+    "event_id": "evt-132-takedown-honor",
+    "event_type": "STORY_CHANNEL_TAKEN_DOWN",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-team-long",
+    "occurred_at": "2026-08-01T11:10:00+08:00",
+    "version": 6,
+    "summary": "榜单页旧版含患者叙事，先下架再出不含叙事的新版",
+    "payload": { "story_id": "s-2026-team-long", "channel": "honor_roll_page", "taken_down_at": "2026-08-01T11:10:00+08:00", "reason": "患者撤回长期宣传授权，切换至无叙事版本" }
+  },
+  {
+    "event_id": "evt-133-takedown-media",
+    "event_type": "STORY_CHANNEL_TAKEN_DOWN",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-team-long",
+    "occurred_at": "2026-08-01T11:20:00+08:00",
+    "version": 7,
+    "summary": "媒体材料包旧版撤回",
+    "payload": { "story_id": "s-2026-team-long", "channel": "media_kit", "taken_down_at": "2026-08-01T11:20:00+08:00", "reason": "患者撤回长期宣传授权，切换至无叙事版本" }
+  },
+  {
+    "event_id": "evt-134-license-patient-revoked",
+    "event_type": "MEDIA_LICENSE_REVOKED",
+    "aggregate_type": "media_license",
+    "aggregate_id": "ml-patient-2026",
+    "occurred_at": "2026-08-01T11:30:00+08:00",
+    "version": 2,
+    "summary": "患者同步撤销患者故事渠道的媒体许可",
+    "payload": { "license_id": "ml-patient-2026", "channels": ["patient_story"], "revoked_at": "2026-08-01T11:30:00+08:00" }
+  },
+  {
+    "event_id": "evt-140-v2-prepared",
+    "event_type": "PUBLICATION_PREPARED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-team-long",
+    "occurred_at": "2026-08-05T09:00:00+08:00",
+    "version": 8,
+    "summary": "新版长期材料：移除患者叙事、采用含苏方远的更正署名",
+    "payload": {
+      "story_id": "s-2026-team-long",
+      "version": 2,
+      "nomination_id": "nom-2026-team-01",
+      "channel_targets": ["honor_roll_page", "media_kit"],
+      "attribution_entries": [
+        { "profile_id": "p-lin", "role": "领队" },
+        { "profile_id": "p-chen", "role": "义诊顾问" },
+        { "profile_id": "p-zhou", "role": "巡诊副组长" },
+        { "profile_id": "p-su", "role": "跨院巡诊搭档" }
+      ],
+      "media_license_ids": ["ml-hospital-2026"],
+      "contribution_ids": ["c-mountain-charity"],
+      "award_ids": ["award-2026-team-07"],
+      "patient_story_included": false
+    }
+  },
+  {
+    "event_id": "evt-141-v2-approval-h",
+    "event_type": "PUBLICATION_APPROVED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-team-long",
+    "occurred_at": "2026-08-06T09:00:00+08:00",
+    "version": 9,
+    "summary": "医院核对新版",
+    "payload": { "story_id": "s-2026-team-long", "version": 2, "reviewer_kind": "hospital", "approved": true, "reviewed_at": "2026-08-06T09:00:00+08:00" }
+  },
+  {
+    "event_id": "evt-142-v2-approval-c",
+    "event_type": "PUBLICATION_APPROVED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-team-long",
+    "occurred_at": "2026-08-06T15:00:00+08:00",
+    "version": 10,
+    "summary": "候选人（含苏方远本人）核对新版署名",
+    "payload": { "story_id": "s-2026-team-long", "version": 2, "reviewer_kind": "candidate", "approved": true, "reviewed_at": "2026-08-06T15:00:00+08:00" }
+  },
+  {
+    "event_id": "evt-143-v2-released",
+    "event_type": "STORY_RELEASED",
+    "aggregate_type": "public_story",
+    "aggregate_id": "s-2026-team-long",
+    "occurred_at": "2026-08-08T10:00:00+08:00",
+    "version": 11,
+    "summary": "无患者叙事的新版在榜单页与媒体材料渠道重新发布",
+    "payload": {
+      "story_id": "s-2026-team-long",
+      "version": 2,
+      "channels": ["honor_roll_page", "media_kit"],
+      "released_at": "2026-08-08T10:00:00+08:00"
+    }
+  },
+  {
+    "event_id": "evt-150-verify-request",
+    "event_type": "VERIFICATION_REQUESTED",
+    "aggregate_type": "verification_packet",
+    "aggregate_id": "vr-2026-009",
+    "occurred_at": "2026-08-20T09:00:00+08:00",
+    "version": 1,
+    "summary": "主办方复核获奖资质，仅索取四项必要事实",
+    "payload": {
+      "request_id": "vr-2026-009",
+      "requested_by": "全国致敬项目组委会",
+      "target_profile_id": "t-xunzhen",
+      "facts_needed": ["license_status", "team_participation_window", "award_was_granted", "charity_record_exists"],
+      "reason": "获奖后例行抽查"
+    }
+  },
+  {
+    "event_id": "evt-151-verify-packet",
+    "event_type": "VERIFICATION_PACKET_ISSUED",
+    "aggregate_type": "verification_packet",
+    "aggregate_id": "vp-2026-009",
+    "occurred_at": "2026-08-21T09:00:00+08:00",
+    "version": 1,
+    "summary": "医院出具最小证据包：仅结论与证据指引，明确不含完整病历",
+    "payload": {
+      "packet_id": "vp-2026-009",
+      "request_id": "vr-2026-009",
+      "target_profile_id": "t-xunzhen",
+      "contains_full_medical_record": false,
+      "facts": [
+        { "fact_key": "license_status", "result": "confirmed", "evidence_ref": "ref://执业资质核验回执-脱敏" },
+        { "fact_key": "team_participation_window", "result": "confirmed", "evidence_ref": "ref://巡诊签认表-仅名单与日期" },
+        { "fact_key": "award_was_granted", "result": "confirmed", "evidence_ref": "ref://颁奖决定2026-07号" },
+        { "fact_key": "charity_record_exists", "result": "confirmed", "evidence_ref": "ref://公益接收证明编号清单" }
+      ]
+    }
+  },
+  {
+    "event_id": "evt-152-fact-1",
+    "event_type": "FACT_VERIFIED",
+    "aggregate_type": "verification_packet",
+    "aggregate_id": "vp-2026-009",
+    "occurred_at": "2026-08-22T09:00:00+08:00",
+    "version": 2,
+    "summary": "资质事实核验通过",
+    "payload": { "packet_id": "vp-2026-009", "fact_key": "license_status", "result": "confirmed", "verified_at": "2026-08-22T09:00:00+08:00" }
+  },
+  {
+    "event_id": "evt-153-fact-2",
+    "event_type": "FACT_VERIFIED",
+    "aggregate_type": "verification_packet",
+    "aggregate_id": "vp-2026-009",
+    "occurred_at": "2026-08-22T09:30:00+08:00",
+    "version": 3,
+    "summary": "团队参与时间窗核验通过（苏方远窗口覆盖2014—2018成果时段）",
+    "payload": { "packet_id": "vp-2026-009", "fact_key": "team_participation_window", "result": "confirmed", "verified_at": "2026-08-22T09:30:00+08:00" }
+  },
+  {
+    "event_id": "evt-154-fact-3",
+    "event_type": "FACT_VERIFIED",
+    "aggregate_type": "verification_packet",
+    "aggregate_id": "vp-2026-009",
+    "occurred_at": "2026-08-22T10:00:00+08:00",
+    "version": 4,
+    "summary": "奖项授予事实核验通过",
+    "payload": { "packet_id": "vp-2026-009", "fact_key": "award_was_granted", "result": "confirmed", "verified_at": "2026-08-22T10:00:00+08:00" }
+  },
+  {
+    "event_id": "evt-155-fact-4",
+    "event_type": "FACT_VERIFIED",
+    "aggregate_type": "verification_packet",
+    "aggregate_id": "vp-2026-009",
+    "occurred_at": "2026-08-22T10:30:00+08:00",
+    "version": 5,
+    "summary": "公益记录存在性核验通过，不涉病情细节",
+    "payload": { "packet_id": "vp-2026-009", "fact_key": "charity_record_exists", "result": "confirmed", "verified_at": "2026-08-22T10:30:00+08:00" }
+  }
+]

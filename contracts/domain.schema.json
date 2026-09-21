@@ -1,56 +1,832 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://honor.example/contracts/domain.schema.json",
   "title": "医者荣誉贡献档案领域事件",
+  "description": "所有事件只追加、不改写；业务更正以后继事件表达。payload 携带事件专属字段。",
   "type": "object",
-  "required": [
-    "event_id",
-    "event_type",
-    "aggregate_type",
-    "aggregate_id",
-    "occurred_at",
-    "version",
-    "summary"
-  ],
+  "required": ["event_id", "event_type", "aggregate_type", "aggregate_id", "occurred_at", "version", "summary"],
   "properties": {
-    "event_id": {
-      "type": "string",
-      "minLength": 1
-    },
+    "event_id": { "type": "string", "minLength": 1 },
     "event_type": {
       "type": "string",
       "enum": [
+        "ORG_REGISTERED",
+        "ORG_RENAMED",
         "PROFILE_REGISTERED",
+        "IDENTITY_MERGED",
+        "TENURE_RECORDED",
+        "TEAM_MEMBERSHIP_RECORDED",
+        "LICENSE_VERIFIED",
         "CONTRIBUTION_ATTESTED",
+        "PEER_ENDORSED",
+        "NOMINATION_SUBMITTED",
+        "NOMINATION_AMENDED",
+        "NOMINATION_CONSOLIDATED",
+        "AWARD_GRANTED",
         "CONSENT_GRANTED",
+        "CONSENT_WITHDRAWN",
+        "MEDIA_LICENSE_GRANTED",
+        "MEDIA_LICENSE_REVOKED",
+        "PUBLICATION_PREPARED",
+        "PUBLICATION_APPROVED",
         "STORY_RELEASED",
-        "ATTRIBUTION_CORRECTED"
+        "STORY_CHANNEL_TAKEN_DOWN",
+        "ATTRIBUTION_CORRECTED",
+        "CORRECTION_PROPAGATED",
+        "VERIFICATION_REQUESTED",
+        "VERIFICATION_PACKET_ISSUED",
+        "FACT_VERIFIED"
       ]
     },
     "aggregate_type": {
       "type": "string",
       "enum": [
+        "org_record",
         "nominee_profile",
         "contribution_record",
+        "nomination",
+        "award",
         "consent_grant",
-        "public_story"
+        "media_license",
+        "public_story",
+        "verification_packet"
       ]
     },
-    "aggregate_id": {
-      "type": "string",
-      "minLength": 1
-    },
-    "occurred_at": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "version": {
-      "type": "integer",
-      "minimum": 1
-    },
-    "summary": {
-      "type": "string",
-      "minLength": 1
-    }
+    "aggregate_id": { "type": "string", "minLength": 1 },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "version": { "type": "integer", "minimum": 1 },
+    "summary": { "type": "string", "minLength": 1 },
+    "payload": { "type": "object" }
   },
-  "additionalProperties": true
+  "additionalProperties": true,
+  "oneOf": [
+    { "$ref": "#/$defs/ev_ORG_REGISTERED" },
+    { "$ref": "#/$defs/ev_ORG_RENAMED" },
+    { "$ref": "#/$defs/ev_PROFILE_REGISTERED" },
+    { "$ref": "#/$defs/ev_IDENTITY_MERGED" },
+    { "$ref": "#/$defs/ev_TENURE_RECORDED" },
+    { "$ref": "#/$defs/ev_TEAM_MEMBERSHIP_RECORDED" },
+    { "$ref": "#/$defs/ev_LICENSE_VERIFIED" },
+    { "$ref": "#/$defs/ev_CONTRIBUTION_ATTESTED" },
+    { "$ref": "#/$defs/ev_PEER_ENDORSED" },
+    { "$ref": "#/$defs/ev_NOMINATION_SUBMITTED" },
+    { "$ref": "#/$defs/ev_NOMINATION_AMENDED" },
+    { "$ref": "#/$defs/ev_NOMINATION_CONSOLIDATED" },
+    { "$ref": "#/$defs/ev_AWARD_GRANTED" },
+    { "$ref": "#/$defs/ev_CONSENT_GRANTED" },
+    { "$ref": "#/$defs/ev_CONSENT_WITHDRAWN" },
+    { "$ref": "#/$defs/ev_MEDIA_LICENSE_GRANTED" },
+    { "$ref": "#/$defs/ev_MEDIA_LICENSE_REVOKED" },
+    { "$ref": "#/$defs/ev_PUBLICATION_PREPARED" },
+    { "$ref": "#/$defs/ev_PUBLICATION_APPROVED" },
+    { "$ref": "#/$defs/ev_STORY_RELEASED" },
+    { "$ref": "#/$defs/ev_STORY_CHANNEL_TAKEN_DOWN" },
+    { "$ref": "#/$defs/ev_ATTRIBUTION_CORRECTED" },
+    { "$ref": "#/$defs/ev_CORRECTION_PROPAGATED" },
+    { "$ref": "#/$defs/ev_VERIFICATION_REQUESTED" },
+    { "$ref": "#/$defs/ev_VERIFICATION_PACKET_ISSUED" },
+    { "$ref": "#/$defs/ev_FACT_VERIFIED" }
+  ],
+  "$defs": {
+    "base": {
+      "type": "object",
+      "required": ["event_id", "event_type", "aggregate_type", "aggregate_id", "occurred_at", "version", "summary", "payload"]
+    },
+    "attribution_entry": {
+      "type": "object",
+      "required": ["profile_id", "role"],
+      "properties": {
+        "profile_id": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 },
+        "participated_from": { "type": "string" },
+        "participated_to": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "fact_assertion": {
+      "type": "object",
+      "required": ["fact_key", "result"],
+      "properties": {
+        "fact_key": {
+          "type": "string",
+          "enum": [
+            "license_status",
+            "license_specialty",
+            "tenure_at_org",
+            "team_participation_window",
+            "award_was_granted",
+            "charity_record_exists"
+          ]
+        },
+        "result": { "type": "string", "enum": ["confirmed", "refuted", "unverifiable"] },
+        "evidence_ref": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "ev_ORG_REGISTERED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "ORG_REGISTERED" },
+            "aggregate_type": { "const": "org_record" },
+            "payload": {
+              "type": "object",
+              "required": ["org_id", "org_name"],
+              "properties": {
+                "org_id": { "type": "string", "minLength": 1 },
+                "org_name": { "type": "string", "minLength": 1 }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_ORG_RENAMED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "ORG_RENAMED" },
+            "aggregate_type": { "const": "org_record" },
+            "payload": {
+              "type": "object",
+              "required": ["org_id", "previous_name", "new_name", "effective_at"],
+              "properties": {
+                "org_id": { "type": "string" },
+                "previous_name": { "type": "string" },
+                "new_name": { "type": "string" },
+                "effective_at": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_PROFILE_REGISTERED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "PROFILE_REGISTERED" },
+            "aggregate_type": { "const": "nominee_profile" },
+            "payload": {
+              "type": "object",
+              "required": ["profile_id", "profile_kind", "canonical_name"],
+              "properties": {
+                "profile_id": { "type": "string" },
+                "profile_kind": { "type": "string", "enum": ["individual", "team"] },
+                "canonical_name": { "type": "string" },
+                "name_variants": { "type": "array", "items": { "type": "string" } },
+                "member_profile_ids": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_IDENTITY_MERGED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "IDENTITY_MERGED" },
+            "aggregate_type": { "const": "nominee_profile" },
+            "payload": {
+              "type": "object",
+              "required": ["canonical_profile_id", "merged_profile_id", "reason"],
+              "properties": {
+                "canonical_profile_id": { "type": "string" },
+                "merged_profile_id": { "type": "string" },
+                "reason": {
+                  "type": "string",
+                  "enum": ["name_variant", "org_renamed", "duplicate_nomination", "data_fix"]
+                },
+                "note": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_TENURE_RECORDED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "TENURE_RECORDED" },
+            "aggregate_type": { "const": "nominee_profile" },
+            "payload": {
+              "type": "object",
+              "required": ["person_profile_id", "org_id", "org_name_snapshot", "started_at", "status"],
+              "properties": {
+                "person_profile_id": { "type": "string" },
+                "org_id": { "type": "string" },
+                "org_name_snapshot": { "type": "string" },
+                "started_at": { "type": "string" },
+                "ended_at": { "type": ["string", "null"] },
+                "status": { "type": "string", "enum": ["active", "departed", "retired"] },
+                "role_title": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_TEAM_MEMBERSHIP_RECORDED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "TEAM_MEMBERSHIP_RECORDED" },
+            "aggregate_type": { "const": "nominee_profile" },
+            "payload": {
+              "type": "object",
+              "required": ["team_profile_id", "member_profile_id", "participated_from"],
+              "properties": {
+                "team_profile_id": { "type": "string" },
+                "member_profile_id": { "type": "string" },
+                "participated_from": { "type": "string" },
+                "participated_to": { "type": ["string", "null"] },
+                "role": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_LICENSE_VERIFIED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "LICENSE_VERIFIED" },
+            "aggregate_type": { "const": "nominee_profile" },
+            "payload": {
+              "type": "object",
+              "required": ["person_profile_id", "license_no_masked", "specialty", "status", "verified_by"],
+              "properties": {
+                "person_profile_id": { "type": "string" },
+                "license_no_masked": { "type": "string" },
+                "specialty": { "type": "string" },
+                "status": { "type": "string", "enum": ["valid", "expired", "revoked"] },
+                "verified_by": { "type": "string" },
+                "verified_at": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_CONTRIBUTION_ATTESTED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "CONTRIBUTION_ATTESTED" },
+            "aggregate_type": { "const": "contribution_record" },
+            "payload": {
+              "type": "object",
+              "required": ["contribution_id", "title", "categories", "period_from", "period_to", "participants"],
+              "properties": {
+                "contribution_id": { "type": "string" },
+                "title": { "type": "string" },
+                "categories": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "enum": ["clinical", "specialty_building", "public_charity", "multi_institution"]
+                  }
+                },
+                "period_from": { "type": "string" },
+                "period_to": { "type": "string" },
+                "participants": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": { "$ref": "#/$defs/attribution_entry" }
+                },
+                "org_ids": { "type": "array", "items": { "type": "string" } },
+                "evidence_refs": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_PEER_ENDORSED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "PEER_ENDORSED" },
+            "aggregate_type": { "const": "contribution_record" },
+            "payload": {
+              "type": "object",
+              "required": ["contribution_id", "endorser_name", "endorser_org_id", "statement_ref"],
+              "properties": {
+                "contribution_id": { "type": "string" },
+                "endorser_name": { "type": "string" },
+                "endorser_org_id": { "type": "string" },
+                "statement_ref": { "type": "string" },
+                "endorsed_at": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_NOMINATION_SUBMITTED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "NOMINATION_SUBMITTED" },
+            "aggregate_type": { "const": "nomination" },
+            "payload": {
+              "type": "object",
+              "required": ["nomination_id", "profile_id", "track", "award_category", "recommending_org_id"],
+              "properties": {
+                "nomination_id": { "type": "string" },
+                "profile_id": { "type": "string" },
+                "track": { "type": "string", "enum": ["individual", "team"] },
+                "award_category": {
+                  "type": "string",
+                  "enum": [
+                    "clinical_achievement",
+                    "specialty_building",
+                    "public_service",
+                    "team_collaboration",
+                    "lifetime_achievement"
+                  ]
+                },
+                "recommending_org_id": { "type": "string" },
+                "contribution_ids": { "type": "array", "items": { "type": "string" } },
+                "recommendation_statement_ref": { "type": "string" },
+                "submitted_at": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_NOMINATION_AMENDED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "NOMINATION_AMENDED" },
+            "aggregate_type": { "const": "nomination" },
+            "payload": {
+              "type": "object",
+              "required": ["nomination_id", "amendment_note"],
+              "properties": {
+                "nomination_id": { "type": "string" },
+                "amendment_note": { "type": "string" },
+                "changed_fields": { "type": "array", "items": { "type": "string" } },
+                "amended_at": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_NOMINATION_CONSOLIDATED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "NOMINATION_CONSOLIDATED" },
+            "aggregate_type": { "const": "nomination" },
+            "payload": {
+              "type": "object",
+              "required": ["kept_nomination_id", "merged_nomination_ids", "reason"],
+              "properties": {
+                "kept_nomination_id": { "type": "string" },
+                "merged_nomination_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+                "reason": {
+                  "type": "string",
+                  "enum": ["name_variant", "org_renamed", "duplicate_nomination", "data_fix"]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_AWARD_GRANTED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "AWARD_GRANTED" },
+            "aggregate_type": { "const": "award" },
+            "payload": {
+              "type": "object",
+              "required": ["award_id", "profile_id", "track", "award_category", "period_from", "period_to", "participants"],
+              "properties": {
+                "award_id": { "type": "string" },
+                "profile_id": { "type": "string" },
+                "track": { "type": "string", "enum": ["individual", "team"] },
+                "award_category": {
+                  "type": "string",
+                  "enum": [
+                    "clinical_achievement",
+                    "specialty_building",
+                    "public_service",
+                    "team_collaboration",
+                    "lifetime_achievement"
+                  ]
+                },
+                "period_from": { "type": "string" },
+                "period_to": { "type": "string" },
+                "participants": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": { "$ref": "#/$defs/attribution_entry" }
+                },
+                "contribution_ids": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_CONSENT_GRANTED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "CONSENT_GRANTED" },
+            "aggregate_type": { "const": "consent_grant" },
+            "payload": {
+              "type": "object",
+              "required": ["consent_id", "patient_pseudonym", "purposes", "granted_at", "statement_version"],
+              "properties": {
+                "consent_id": { "type": "string" },
+                "patient_pseudonym": { "type": "string" },
+                "purposes": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": { "type": "string", "enum": ["review", "ceremony", "long_term_publicity"] }
+                },
+                "granted_at": { "type": "string" },
+                "statement_version": { "type": "string" },
+                "story_id": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_CONSENT_WITHDRAWN": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "CONSENT_WITHDRAWN" },
+            "aggregate_type": { "const": "consent_grant" },
+            "payload": {
+              "type": "object",
+              "required": ["consent_id", "purposes", "withdrawn_at"],
+              "properties": {
+                "consent_id": { "type": "string" },
+                "purposes": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": { "type": "string", "enum": ["review", "ceremony", "long_term_publicity"] }
+                },
+                "withdrawn_at": { "type": "string" },
+                "reason": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_MEDIA_LICENSE_GRANTED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "MEDIA_LICENSE_GRANTED" },
+            "aggregate_type": { "const": "media_license" },
+            "payload": {
+              "type": "object",
+              "required": ["license_id", "licensor_role", "channels", "material_refs", "granted_from"],
+              "properties": {
+                "license_id": { "type": "string" },
+                "licensor_role": {
+                  "type": "string",
+                  "enum": ["candidate", "hospital", "patient", "media_outlet"]
+                },
+                "channels": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "enum": ["honor_roll_page", "patient_story", "media_kit", "ceremony"]
+                  }
+                },
+                "material_refs": { "type": "array", "items": { "type": "string" } },
+                "granted_from": { "type": "string" },
+                "granted_to": { "type": ["string", "null"] }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_MEDIA_LICENSE_REVOKED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "MEDIA_LICENSE_REVOKED" },
+            "aggregate_type": { "const": "media_license" },
+            "payload": {
+              "type": "object",
+              "required": ["license_id", "channels", "revoked_at"],
+              "properties": {
+                "license_id": { "type": "string" },
+                "channels": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "enum": ["honor_roll_page", "patient_story", "media_kit", "ceremony"]
+                  }
+                },
+                "revoked_at": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_PUBLICATION_PREPARED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "PUBLICATION_PREPARED" },
+            "aggregate_type": { "const": "public_story" },
+            "payload": {
+              "type": "object",
+              "required": ["story_id", "version", "nomination_id", "channel_targets", "attribution_entries"],
+              "properties": {
+                "story_id": { "type": "string" },
+                "version": { "type": "integer", "minimum": 1 },
+                "nomination_id": { "type": "string" },
+                "channel_targets": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "enum": ["honor_roll_page", "patient_story", "media_kit", "ceremony"]
+                  }
+                },
+                "attribution_entries": {
+                  "type": "array",
+                  "items": { "$ref": "#/$defs/attribution_entry" }
+                },
+                "consent_ids": { "type": "array", "items": { "type": "string" } },
+                "media_license_ids": { "type": "array", "items": { "type": "string" } },
+                "patient_story_included": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_PUBLICATION_APPROVED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "PUBLICATION_APPROVED" },
+            "aggregate_type": { "const": "public_story" },
+            "payload": {
+              "type": "object",
+              "required": ["story_id", "version", "reviewer_kind", "approved"],
+              "properties": {
+                "story_id": { "type": "string" },
+                "version": { "type": "integer", "minimum": 1 },
+                "reviewer_kind": { "type": "string", "enum": ["hospital", "candidate"] },
+                "approved": { "type": "boolean" },
+                "review_note": { "type": "string" },
+                "reviewed_at": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_STORY_RELEASED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "STORY_RELEASED" },
+            "aggregate_type": { "const": "public_story" },
+            "payload": {
+              "type": "object",
+              "required": ["story_id", "version", "channels", "released_at"],
+              "properties": {
+                "story_id": { "type": "string" },
+                "version": { "type": "integer", "minimum": 1 },
+                "channels": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "enum": ["honor_roll_page", "patient_story", "media_kit", "ceremony"]
+                  }
+                },
+                "released_at": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_STORY_CHANNEL_TAKEN_DOWN": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "STORY_CHANNEL_TAKEN_DOWN" },
+            "aggregate_type": { "const": "public_story" },
+            "payload": {
+              "type": "object",
+              "required": ["story_id", "channel", "taken_down_at", "reason"],
+              "properties": {
+                "story_id": { "type": "string" },
+                "channel": {
+                  "type": "string",
+                  "enum": ["honor_roll_page", "patient_story", "media_kit", "ceremony"]
+                },
+                "taken_down_at": { "type": "string" },
+                "reason": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_ATTRIBUTION_CORRECTED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "ATTRIBUTION_CORRECTED" },
+            "aggregate_type": { "const": "public_story" },
+            "payload": {
+              "type": "object",
+              "required": ["correction_id", "scope", "error_kind", "original_event_id", "corrected_at", "attribution_after"],
+              "properties": {
+                "correction_id": { "type": "string" },
+                "scope": { "type": "string", "enum": ["contribution", "award", "publication"] },
+                "error_kind": {
+                  "type": "string",
+                  "enum": ["omitted_member", "wrong_member", "role_misstated", "name_variant", "org_misstated"]
+                },
+                "target_id": {
+                  "type": "string",
+                  "description": "受影响的 contribution_id / award_id / story_id，按 scope 解释"
+                },
+                "original_event_id": { "type": "string" },
+                "corrected_at": { "type": "string" },
+                "attribution_after": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": { "$ref": "#/$defs/attribution_entry" }
+                },
+                "note": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_CORRECTION_PROPAGATED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "CORRECTION_PROPAGATED" },
+            "aggregate_type": { "const": "public_story" },
+            "payload": {
+              "type": "object",
+              "required": ["correction_id", "story_id", "channel", "status"],
+              "properties": {
+                "correction_id": { "type": "string" },
+                "story_id": { "type": "string" },
+                "channel": {
+                  "type": "string",
+                  "enum": ["honor_roll_page", "patient_story", "media_kit", "ceremony"]
+                },
+                "status": { "type": "string", "enum": ["pending", "synced", "failed"] },
+                "synced_at": { "type": "string" },
+                "detail": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_VERIFICATION_REQUESTED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "VERIFICATION_REQUESTED" },
+            "aggregate_type": { "const": "verification_packet" },
+            "payload": {
+              "type": "object",
+              "required": ["request_id", "requested_by", "facts_needed"],
+              "properties": {
+                "request_id": { "type": "string" },
+                "requested_by": { "type": "string" },
+                "facts_needed": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "license_status",
+                      "license_specialty",
+                      "tenure_at_org",
+                      "team_participation_window",
+                      "award_was_granted",
+                      "charity_record_exists"
+                    ]
+                  }
+                },
+                "target_profile_id": { "type": "string" },
+                "reason": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_VERIFICATION_PACKET_ISSUED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "VERIFICATION_PACKET_ISSUED" },
+            "aggregate_type": { "const": "verification_packet" },
+            "payload": {
+              "type": "object",
+              "required": ["packet_id", "request_id", "target_profile_id", "facts", "contains_full_medical_record"],
+              "properties": {
+                "packet_id": { "type": "string" },
+                "request_id": { "type": "string" },
+                "target_profile_id": { "type": "string" },
+                "facts": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": { "$ref": "#/$defs/fact_assertion" }
+                },
+                "contains_full_medical_record": { "type": "boolean", "const": false }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ev_FACT_VERIFIED": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "properties": {
+            "event_type": { "const": "FACT_VERIFIED" },
+            "aggregate_type": { "const": "verification_packet" },
+            "payload": {
+              "type": "object",
+              "required": ["packet_id", "fact_key", "result"],
+              "properties": {
+                "packet_id": { "type": "string" },
+                "fact_key": {
+                  "type": "string",
+                  "enum": [
+                    "license_status",
+                    "license_specialty",
+                    "tenure_at_org",
+                    "team_participation_window",
+                    "award_was_granted",
+                    "charity_record_exists"
+                  ]
+                },
+                "result": { "type": "string", "enum": ["confirmed", "refuted", "unverifiable"] },
+                "verified_at": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
 }
