@@ -1,0 +1,466 @@
+{
+  "description": "全国致敬项目样例事件流：机构更名、姓名异体、重复推荐归并、材料补正、团队贡献与署名遗漏更正、患者分用途同意与撤回、媒体许可、双重核对发布、最小必要核验。",
+  "events": [
+    {
+      "event_id": "evt-001",
+      "event_type": "INSTITUTION_REGISTERED",
+      "aggregate_type": "institution",
+      "aggregate_id": "inst-01",
+      "occurred_at": "2026-01-05T09:00:00+08:00",
+      "version": 1,
+      "summary": "登记推荐机构：仁济职工医院",
+      "payload": { "name": "仁济职工医院" }
+    },
+    {
+      "event_id": "evt-002",
+      "event_type": "INSTITUTION_RENAMED",
+      "aggregate_type": "institution",
+      "aggregate_id": "inst-01",
+      "occurred_at": "2026-01-05T09:05:00+08:00",
+      "version": 2,
+      "summary": "机构更名：仁济职工医院更名为仁济医院",
+      "payload": { "former_name": "仁济职工医院", "current_name": "仁济医院", "effective_at": "2018-01-01" }
+    },
+    {
+      "event_id": "evt-003",
+      "event_type": "INSTITUTION_REGISTERED",
+      "aggregate_type": "institution",
+      "aggregate_id": "inst-02",
+      "occurred_at": "2026-01-05T09:10:00+08:00",
+      "version": 1,
+      "summary": "登记协作机构：黔南州人民医院",
+      "payload": { "name": "黔南州人民医院" }
+    },
+    {
+      "event_id": "evt-004",
+      "event_type": "PROFILE_REGISTERED",
+      "aggregate_type": "nominee_profile",
+      "aggregate_id": "p-wang",
+      "occurred_at": "2026-01-06T10:00:00+08:00",
+      "version": 1,
+      "summary": "登记候选人档案：王建国",
+      "payload": {
+        "canonical_name": "王建国",
+        "name_variants": ["王建國"],
+        "credentials": [
+          { "license_no": "1998-52-0117", "category": "临床执业医师", "issued_by": "贵州省卫生健康委员会", "valid_until": "2030-12-31" }
+        ],
+        "employments": [
+          { "institution_id": "inst-01", "title": "主任医师", "started_at": "2005-07-01", "ended_at": null }
+        ]
+      }
+    },
+    {
+      "event_id": "evt-005",
+      "event_type": "PROFILE_ALIAS_ADDED",
+      "aggregate_type": "nominee_profile",
+      "aggregate_id": "p-wang",
+      "occurred_at": "2026-01-06T10:05:00+08:00",
+      "version": 2,
+      "summary": "归并姓名异体：王见国（早期地方报道用字）",
+      "payload": { "variant": "王见国", "note": "早期地方报道用字" }
+    },
+    {
+      "event_id": "evt-006",
+      "event_type": "CREDENTIAL_VERIFIED",
+      "aggregate_type": "nominee_profile",
+      "aggregate_id": "p-wang",
+      "occurred_at": "2026-01-06T10:10:00+08:00",
+      "version": 3,
+      "summary": "执业资质核验通过（只留断言，不留证件原件）",
+      "payload": { "credential_ref": "1998-52-0117", "verifier": "全国致敬项目核验组", "method": "执业注册信息比对", "assertion": "执业资质有效" }
+    },
+    {
+      "event_id": "evt-007",
+      "event_type": "PROFILE_REGISTERED",
+      "aggregate_type": "nominee_profile",
+      "aggregate_id": "p-li",
+      "occurred_at": "2026-01-06T11:00:00+08:00",
+      "version": 1,
+      "summary": "登记候选人档案：李岚（已退休）",
+      "payload": {
+        "canonical_name": "李岚",
+        "name_variants": ["李蘭"],
+        "credentials": [
+          { "license_no": "2001-52-0366", "category": "临床执业医师", "issued_by": "贵州省卫生健康委员会", "valid_until": "2020-06-30" }
+        ],
+        "employments": [
+          { "institution_id": "inst-01", "title": "副主任医师", "started_at": "2008-03-01", "ended_at": "2020-05-31" }
+        ],
+        "status": "retired"
+      }
+    },
+    {
+      "event_id": "evt-008",
+      "event_type": "EMPLOYMENT_RECORDED",
+      "aggregate_type": "nominee_profile",
+      "aggregate_id": "p-li",
+      "occurred_at": "2026-01-20T09:30:00+08:00",
+      "version": 2,
+      "summary": "材料补正：李岚退休手续办结日期更正为 2020-06-30",
+      "corrects": "evt-007",
+      "payload": {
+        "institution_id": "inst-01",
+        "title": "副主任医师",
+        "started_at": "2008-03-01",
+        "ended_at": "2020-06-30",
+        "note": "材料补正：退休手续办结日期"
+      }
+    },
+    {
+      "event_id": "evt-009",
+      "event_type": "PROFILE_REGISTERED",
+      "aggregate_type": "nominee_profile",
+      "aggregate_id": "p-zhao",
+      "occurred_at": "2026-01-20T10:00:00+08:00",
+      "version": 1,
+      "summary": "登记候选人档案：赵敏（协作机构）",
+      "payload": {
+        "canonical_name": "赵敏",
+        "credentials": [
+          { "license_no": "2004-52-0821", "category": "临床执业医师", "issued_by": "贵州省卫生健康委员会", "valid_until": "2032-12-31" }
+        ],
+        "employments": [
+          { "institution_id": "inst-02", "title": "主任医师", "started_at": "2010-09-01", "ended_at": null }
+        ]
+      }
+    },
+    {
+      "event_id": "evt-010",
+      "event_type": "PROFILE_REGISTERED",
+      "aggregate_type": "nominee_profile",
+      "aggregate_id": "p-zhang",
+      "occurred_at": "2026-01-20T10:05:00+08:00",
+      "version": 1,
+      "summary": "登记档案：张晨（2022 年入职，未参与援黔项目）",
+      "payload": {
+        "canonical_name": "张晨",
+        "credentials": [
+          { "license_no": "2016-52-1102", "category": "临床执业医师", "issued_by": "贵州省卫生健康委员会", "valid_until": "2035-12-31" }
+        ],
+        "employments": [
+          { "institution_id": "inst-01", "title": "主治医师", "started_at": "2022-08-01", "ended_at": null }
+        ]
+      }
+    },
+    {
+      "event_id": "evt-011",
+      "event_type": "CONTRIBUTION_ATTESTED",
+      "aggregate_type": "contribution_record",
+      "aggregate_id": "c-yuanqian",
+      "occurred_at": "2026-01-22T14:00:00+08:00",
+      "version": 1,
+      "summary": "同行证明援黔多学科联合诊疗项目贡献（原始记录，后发现署名遗漏）",
+      "payload": {
+        "title": "援黔多学科联合诊疗项目",
+        "kind": "multi_institution",
+        "period": { "start": "2019-01-01", "end": "2021-12-31" },
+        "participants": [
+          { "profile_id": "p-wang", "role": "项目负责医者", "window": { "start": "2019-01-01", "end": "2021-12-31" } },
+          { "profile_id": "p-zhao", "role": "协作机构负责医者", "window": { "start": "2019-06-01", "end": "2021-12-31" } }
+        ],
+        "evidence": [
+          { "type": "agreement", "ref": "arch-2019-017", "assertion": "两院转诊与会诊协议存在" },
+          { "type": "training_log", "ref": "arch-2020-144", "assertion": "基层培训记录可查" }
+        ],
+        "peer_attestations": [
+          { "attestor_profile_id": "p-zhao", "statement": "王建国全程负责诊疗方案与带教" }
+        ]
+      }
+    },
+    {
+      "event_id": "evt-012",
+      "event_type": "NOMINATION_SUBMITTED",
+      "aggregate_type": "nomination",
+      "aggregate_id": "n-team",
+      "occurred_at": "2026-02-01T09:00:00+08:00",
+      "version": 1,
+      "summary": "团队推荐：援黔项目申报年度致敬团队",
+      "payload": {
+        "award_category": "年度致敬团队",
+        "scope": "team",
+        "contribution_ids": ["c-yuanqian"],
+        "recommending_institution_id": "inst-01",
+        "opinion": "该项目跨省协作三年，建议作为团队推荐"
+      }
+    },
+    {
+      "event_id": "evt-013",
+      "event_type": "NOMINATION_SUBMITTED",
+      "aggregate_type": "nomination",
+      "aggregate_id": "n-ind-wang",
+      "occurred_at": "2026-02-01T09:05:00+08:00",
+      "version": 1,
+      "summary": "个人推荐：王建国申报年度致敬医者",
+      "payload": {
+        "award_category": "年度致敬医者",
+        "scope": "individual",
+        "nominee_profile_id": "p-wang",
+        "contribution_ids": ["c-yuanqian"],
+        "recommending_institution_id": "inst-02",
+        "opinion": "协作医院联名推荐"
+      }
+    },
+    {
+      "event_id": "evt-014",
+      "event_type": "NOMINATION_SUBMITTED",
+      "aggregate_type": "nomination",
+      "aggregate_id": "n-dup",
+      "occurred_at": "2026-02-03T10:00:00+08:00",
+      "version": 1,
+      "summary": "收到重复推荐（姓名异体“王建國”与机构旧称“仁济职工医院”）",
+      "payload": {
+        "award_category": "年度致敬医者",
+        "scope": "individual",
+        "nominee_name": "王建國",
+        "nominee_institution_name": "仁济职工医院",
+        "contribution_ids": ["c-yuanqian"],
+        "recommending_institution_id": "inst-02",
+        "opinion": "重复提交的推荐"
+      }
+    },
+    {
+      "event_id": "evt-015",
+      "event_type": "NOMINATION_MERGED",
+      "aggregate_type": "nomination",
+      "aggregate_id": "n-dup",
+      "occurred_at": "2026-02-10T15:00:00+08:00",
+      "version": 2,
+      "summary": "重复推荐归并到同一候选：n-dup 并入 n-ind-wang",
+      "payload": {
+        "into_nomination_id": "n-ind-wang",
+        "resolved_profile_id": "p-wang",
+        "reason": "姓名异体与机构更名指向同一候选，重复推荐归并"
+      }
+    },
+    {
+      "event_id": "evt-016",
+      "event_type": "CONSENT_GRANTED",
+      "aggregate_type": "consent_grant",
+      "aggregate_id": "story-s1",
+      "occurred_at": "2026-03-01T10:00:00+08:00",
+      "version": 1,
+      "summary": "患者同意其叙事用于评审",
+      "payload": { "patient_ref": "ptn-0417", "purpose": "review", "note": "仅用于评审材料" }
+    },
+    {
+      "event_id": "evt-017",
+      "event_type": "CONSENT_GRANTED",
+      "aggregate_type": "consent_grant",
+      "aggregate_id": "story-s1",
+      "occurred_at": "2026-03-01T10:05:00+08:00",
+      "version": 2,
+      "summary": "患者同意其叙事用于盛典",
+      "payload": { "patient_ref": "ptn-0417", "purpose": "ceremony", "note": "同意盛典现场讲述" }
+    },
+    {
+      "event_id": "evt-018",
+      "event_type": "CONSENT_GRANTED",
+      "aggregate_type": "consent_grant",
+      "aggregate_id": "story-s1",
+      "occurred_at": "2026-03-01T10:10:00+08:00",
+      "version": 3,
+      "summary": "患者同意其叙事用于长期宣传",
+      "payload": { "patient_ref": "ptn-0417", "purpose": "long_term_publicity", "note": "同意长期宣传（后被部分撤回）" }
+    },
+    {
+      "event_id": "evt-019",
+      "event_type": "MEDIA_LICENSE_GRANTED",
+      "aggregate_type": "media_license",
+      "aggregate_id": "mat-video-1",
+      "occurred_at": "2026-04-01T09:00:00+08:00",
+      "version": 1,
+      "summary": "盛典短片素材获得现场与直播渠道许可",
+      "payload": { "channels": ["盛典现场", "盛典直播"], "licensee": "项目组委会", "scope": "盛典短片使用" }
+    },
+    {
+      "event_id": "evt-020",
+      "event_type": "STORY_REVIEWED",
+      "aggregate_type": "publication",
+      "aggregate_id": "pub-leaderboard",
+      "occurred_at": "2026-05-08T10:00:00+08:00",
+      "version": 1,
+      "summary": "推荐医院核对榜单页面第 1 版",
+      "payload": { "content_version": 1, "reviewer": { "kind": "hospital", "id": "inst-01" }, "decision": "approved" }
+    },
+    {
+      "event_id": "evt-021",
+      "event_type": "STORY_REVIEWED",
+      "aggregate_type": "publication",
+      "aggregate_id": "pub-leaderboard",
+      "occurred_at": "2026-05-08T11:00:00+08:00",
+      "version": 2,
+      "summary": "候选人核对榜单页面第 1 版",
+      "payload": { "content_version": 1, "reviewer": { "kind": "candidate", "id": "p-wang" }, "decision": "approved" }
+    },
+    {
+      "event_id": "evt-022",
+      "event_type": "STORY_RELEASED",
+      "aggregate_type": "publication",
+      "aggregate_id": "pub-leaderboard",
+      "occurred_at": "2026-05-10T09:00:00+08:00",
+      "version": 3,
+      "summary": "发布榜单页面第 1 版（遗漏李岚署名）",
+      "payload": {
+        "kind": "leaderboard_page",
+        "content_version": 1,
+        "channels": ["项目官网榜单"],
+        "purpose": "long_term_publicity",
+        "references": { "contribution_ids": ["c-yuanqian"], "nominee_ids": ["p-wang", "p-zhao"] }
+      }
+    },
+    {
+      "event_id": "evt-023",
+      "event_type": "STORY_REVIEWED",
+      "aggregate_type": "publication",
+      "aggregate_id": "pub-story",
+      "occurred_at": "2026-05-12T10:00:00+08:00",
+      "version": 1,
+      "summary": "推荐医院核对患者故事第 1 版",
+      "payload": { "content_version": 1, "reviewer": { "kind": "hospital", "id": "inst-01" }, "decision": "approved" }
+    },
+    {
+      "event_id": "evt-024",
+      "event_type": "STORY_REVIEWED",
+      "aggregate_type": "publication",
+      "aggregate_id": "pub-story",
+      "occurred_at": "2026-05-12T11:00:00+08:00",
+      "version": 2,
+      "summary": "候选人核对患者故事第 1 版",
+      "payload": { "content_version": 1, "reviewer": { "kind": "candidate", "id": "p-wang" }, "decision": "approved" }
+    },
+    {
+      "event_id": "evt-025",
+      "event_type": "STORY_RELEASED",
+      "aggregate_type": "publication",
+      "aggregate_id": "pub-story",
+      "occurred_at": "2026-05-15T09:00:00+08:00",
+      "version": 3,
+      "summary": "发布患者故事第 1 版",
+      "payload": {
+        "kind": "patient_story",
+        "content_version": 1,
+        "channels": ["项目官网故事栏"],
+        "purpose": "long_term_publicity",
+        "references": { "story_refs": ["story-s1"], "contribution_ids": ["c-yuanqian"], "nominee_ids": ["p-wang"] }
+      }
+    },
+    {
+      "event_id": "evt-026",
+      "event_type": "STORY_REVIEWED",
+      "aggregate_type": "publication",
+      "aggregate_id": "pub-video",
+      "occurred_at": "2026-06-01T10:00:00+08:00",
+      "version": 1,
+      "summary": "推荐医院核对盛典短片第 1 版",
+      "payload": { "content_version": 1, "reviewer": { "kind": "hospital", "id": "inst-01" }, "decision": "approved" }
+    },
+    {
+      "event_id": "evt-027",
+      "event_type": "STORY_REVIEWED",
+      "aggregate_type": "publication",
+      "aggregate_id": "pub-video",
+      "occurred_at": "2026-06-01T11:00:00+08:00",
+      "version": 2,
+      "summary": "候选人核对盛典短片第 1 版",
+      "payload": { "content_version": 1, "reviewer": { "kind": "candidate", "id": "p-wang" }, "decision": "approved" }
+    },
+    {
+      "event_id": "evt-028",
+      "event_type": "STORY_RELEASED",
+      "aggregate_type": "publication",
+      "aggregate_id": "pub-video",
+      "occurred_at": "2026-06-05T09:00:00+08:00",
+      "version": 3,
+      "summary": "发布盛典短片第 1 版",
+      "payload": {
+        "kind": "media_material",
+        "content_version": 1,
+        "channels": ["盛典现场"],
+        "purpose": "ceremony",
+        "references": { "material_refs": ["mat-video-1"], "contribution_ids": ["c-yuanqian"], "nominee_ids": ["p-wang", "p-zhao"] }
+      }
+    },
+    {
+      "event_id": "evt-029",
+      "event_type": "CONSENT_WITHDRAWN",
+      "aggregate_type": "consent_grant",
+      "aggregate_id": "story-s1",
+      "occurred_at": "2026-08-10T14:00:00+08:00",
+      "version": 4,
+      "summary": "患者撤回长期宣传用途（评审与盛典用途保留）",
+      "payload": { "patient_ref": "ptn-0417", "purpose": "long_term_publicity", "note": "仅撤回长期宣传一种用途" }
+    },
+    {
+      "event_id": "evt-030",
+      "event_type": "ATTRIBUTION_CORRECTED",
+      "aggregate_type": "contribution_record",
+      "aggregate_id": "c-yuanqian",
+      "occurred_at": "2026-09-01T10:00:00+08:00",
+      "version": 2,
+      "summary": "署名更正：补记李岚 2019-01 至 2020-06 的真实分工，原始记录保留",
+      "corrects": "evt-011",
+      "payload": {
+        "add_participants": [
+          { "profile_id": "p-li", "role": "诊疗组组长", "window": { "start": "2019-01-01", "end": "2020-06-30" } }
+        ],
+        "remove_participants": [],
+        "reason": "榜单发布后发现成员署名遗漏，补记真实分工；不改动原始记录"
+      }
+    },
+    {
+      "event_id": "evt-031",
+      "event_type": "STORY_REVIEWED",
+      "aggregate_type": "publication",
+      "aggregate_id": "pub-leaderboard",
+      "occurred_at": "2026-09-03T10:00:00+08:00",
+      "version": 4,
+      "summary": "推荐医院核对榜单页面第 2 版（更正版）",
+      "payload": { "content_version": 2, "reviewer": { "kind": "hospital", "id": "inst-01" }, "decision": "approved" }
+    },
+    {
+      "event_id": "evt-032",
+      "event_type": "STORY_REVIEWED",
+      "aggregate_type": "publication",
+      "aggregate_id": "pub-leaderboard",
+      "occurred_at": "2026-09-03T11:00:00+08:00",
+      "version": 5,
+      "summary": "候选人核对榜单页面第 2 版（更正版）",
+      "payload": { "content_version": 2, "reviewer": { "kind": "candidate", "id": "p-wang" }, "decision": "approved" }
+    },
+    {
+      "event_id": "evt-033",
+      "event_type": "STORY_RELEASED",
+      "aggregate_type": "publication",
+      "aggregate_id": "pub-leaderboard",
+      "occurred_at": "2026-09-05T09:00:00+08:00",
+      "version": 6,
+      "summary": "以第 2 版重新发布榜单页面，同步各渠道更正",
+      "corrects": "evt-022",
+      "payload": {
+        "kind": "leaderboard_page",
+        "content_version": 2,
+        "channels": ["项目官网榜单"],
+        "purpose": "long_term_publicity",
+        "supersedes": 1,
+        "references": { "contribution_ids": ["c-yuanqian"], "nominee_ids": ["p-wang", "p-zhao", "p-li"] }
+      }
+    },
+    {
+      "event_id": "evt-034",
+      "event_type": "VERIFICATION_DISCLOSED",
+      "aggregate_type": "nominee_profile",
+      "aggregate_id": "p-wang",
+      "occurred_at": "2026-09-10T15:00:00+08:00",
+      "version": 4,
+      "summary": "向组委会披露最小必要核验断言（不含病历与证据原件）",
+      "payload": {
+        "request_id": "req-2026-0901",
+        "verifier": "项目组委会资格组",
+        "checks": ["credential", "participation"],
+        "disclosed_fields": ["credential_assertion", "participation_role", "participation_window"],
+        "note": "仅提供必要断言，未提供病历或证据原件"
+      }
+    }
+  ]
+}

@@ -20,19 +20,35 @@
       "type": "string",
       "enum": [
         "PROFILE_REGISTERED",
+        "PROFILE_ALIAS_ADDED",
+        "PROFILE_MERGED",
+        "EMPLOYMENT_RECORDED",
+        "CREDENTIAL_VERIFIED",
+        "INSTITUTION_REGISTERED",
+        "INSTITUTION_RENAMED",
         "CONTRIBUTION_ATTESTED",
+        "NOMINATION_SUBMITTED",
+        "NOMINATION_MERGED",
         "CONSENT_GRANTED",
+        "CONSENT_WITHDRAWN",
+        "MEDIA_LICENSE_GRANTED",
+        "MEDIA_LICENSE_REVOKED",
+        "STORY_REVIEWED",
         "STORY_RELEASED",
-        "ATTRIBUTION_CORRECTED"
+        "ATTRIBUTION_CORRECTED",
+        "VERIFICATION_DISCLOSED"
       ]
     },
     "aggregate_type": {
       "type": "string",
       "enum": [
         "nominee_profile",
+        "institution",
         "contribution_record",
+        "nomination",
         "consent_grant",
-        "public_story"
+        "media_license",
+        "publication"
       ]
     },
     "aggregate_id": {
@@ -50,6 +66,30 @@
     "summary": {
       "type": "string",
       "minLength": 1
+    },
+    "payload": {
+      "type": "object",
+      "description": "事件特定内容；各事件类型的字段约定见 README 与 src/stream.js"
+    },
+    "corrects": {
+      "type": "string",
+      "minLength": 1,
+      "description": "本事件更正的先前列事件 event_id；更正只追加后继记录，不改写原事件"
+    },
+    "actor": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["hospital", "candidate", "patient", "organizer", "verifier", "peer", "system"]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
     }
   },
   "additionalProperties": true
